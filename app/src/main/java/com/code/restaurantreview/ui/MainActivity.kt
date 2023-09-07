@@ -40,16 +40,16 @@ class MainActivity : AppCompatActivity() {
 
         findRestaurant()
 
-        binding.btnSend.setOnClickListener{
+        binding.btnSend.setOnClickListener{view->
             postReview(binding.edReview.text.toString())
             val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-
+            imm.hideSoftInputFromWindow(view.windowToken, 0)
         }
     }
 
     private fun postReview(review: String) {
         showLoading(true)
-        val client = ApiConfig.getApiService().postReview(RESTAURANT_ID, "Gatau", review)
+        val client = ApiConfig.getApiService().postReview(RESTAURANT_ID, "Rawr", review)
         client.enqueue(object : Callback<PostReviewResponse> {
             override fun onResponse(
                 call: Call<PostReviewResponse>,
