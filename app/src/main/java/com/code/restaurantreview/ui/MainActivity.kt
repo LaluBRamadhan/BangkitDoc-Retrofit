@@ -12,6 +12,7 @@ import com.bumptech.glide.Glide
 import com.code.restaurantreview.data.response.CustomerReviewsItem
 import com.code.restaurantreview.data.response.Restaurant
 import com.code.restaurantreview.databinding.ActivityMainBinding
+import com.google.android.material.snackbar.Snackbar
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -46,6 +47,11 @@ class MainActivity : AppCompatActivity() {
             showLoading(it)
         }
 
+        mainViewModel.snackBarText.observe(this,{
+            it.getContentIfNotHandled()?.let {
+                Snackbar.make(window.decorView.rootView,it, Snackbar.LENGTH_SHORT).show()
+            }
+        })
 
         binding.btnSend.setOnClickListener{view->
             mainViewModel.postReview(binding.edReview.text.toString())
@@ -53,10 +59,6 @@ class MainActivity : AppCompatActivity() {
             imm.hideSoftInputFromWindow(view.windowToken, 0)
         }
     }
-
-
-
-
 
     private fun setRestaurantData(restaurant: Restaurant) {
         binding.tvTitle.text = restaurant.name
