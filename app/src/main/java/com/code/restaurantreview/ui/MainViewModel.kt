@@ -87,7 +87,7 @@ class MainViewModel: ViewModel() {
             }
             override fun onFailure(call: Call<PostReviewResponse>, t: Throwable) {
                 _isLoading.value = false
-                    Log.e(TAG, "onFailure: ${t.message.toString()}")
+                Log.e(TAG, "onFailure: ${t.message.toString()}")
             }
         })
     }
